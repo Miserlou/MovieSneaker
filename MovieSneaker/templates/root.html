@@ -1,0 +1,63 @@
+<html>
+		<head>
+				<link href="/static/style.css" rel="stylesheet" type="text/css" />
+				<link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">
+		<title>MovieSneaker</title>
+</head>
+<body>
+		<div id="centerer">
+				<div id="header">
+						<div id="logo">
+								<h1><b>Movie</b>Sneaker</h1>	
+						</div>
+						<div id="tagline">
+							<i>"I ain't payin for that shit!"</i>
+						</div>
+				</div>
+				<div id="main">
+						<div id="text">
+								<br />MovieSneaker tells you when you should go to the movies if you want to see multiple films on
+								one ticket.<br /><br /> (Unscrupulously.)
+						</div>
+						<div id="form">
+								<br />
+								<form enctype="multipart/form-data" action="." method="POST">
+										{% csrf_token %}
+										{{form.errors}}
+										<input type="zipcode" name="zipcode" id="zipcode" minlength="5" maxlength="5" placeholder="What's Your Zipcode?"><br /><br />
+										<input type="submit" name="submit" id="submit" minlength="3" value="Submit!" ></input>
+								</form>
+						</div>
+
+		</div>
+</div>
+
+		<div id="footer-wrapper">
+	<div id="three-columns">
+		<div id="column1">
+			<h2>About</h2>
+			<ul>
+				<li><a href="/about/">About</a></li>
+				<li><a href="/blog/">Blog</a> / <a href="http://twitter.com/GUNdotIO" target="_blank">Twitter</a></li>
+			</ul>
+		</div>
+		<div id="column2">
+			<h2>Contact</h2>
+			<ul>
+				<li><a href="/contact/">Contact</a></li>
+			</ul>
+		</div>
+		<div id="column3">
+			<h2>Meta</h2>
+			<ul>
+				<li><a href="/">API</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="footer">
+		<p>Copyright (c) 2011 Beef Bowel Movements, Inc.</p>
+	</div>
+
+	<!-- end #footer -->
+

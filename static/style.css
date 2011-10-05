@@ -1,0 +1,174 @@
+body{
+		background: #FFEFD9;
+		border-top: 10px solid #7F1732;
+		padding: 0px;
+		margin: 0px;
+		background: url("/static/gradient.png") repeat-x scroll 0 0 #FFEFD9;
+
+}
+
+#header{
+		display: inline;
+}
+
+#logo{
+		text-align: center;
+			font: 42px/120% 'STHeiti',Gil Sans MT,Helvetica,serif;
+			color: #000000;
+			border: 0;
+			outline: none;
+			border-spacing: 0;
+			text-shadow: 0 1px 0px #ffffff;
+		 font-style: bold;	
+}
+#tagline{
+		text-align: center;
+			font: 29px/120% 'STHeiti',Gil Sans MT,Helvetica,serif;
+			color: #000000;
+			border: 0;
+			outline: none;
+			border-spacing: 0;
+			text-shadow: 0 0 1px #666677;
+			margin-top: -20px;
+}
+
+#text{
+			font: 36px/120% 'STHeiti',Gil Sans MT,Helvetica,serif;
+			color: #000000;
+			border: 0;
+			outline: none;
+			border-spacing: 0;
+			text-shadow: 0 0 1px #666677;
+		  text-align: center;
+}
+
+#form{
+			font: 24px/120% 'STHeiti',Gil Sans MT,Helvetica,serif;
+			color: #000000;
+			border: 0;
+			outline: none;
+			border-spacing: 0;
+			text-shadow: 0 0 1px #666677;
+		  text-align: center;
+}
+
+#form input[type="submit"]{
+			font: 24px/120% 'STHeiti',Gil Sans MT,Helvetica,serif;
+			color: #000000;
+			background: #ffffff;
+			outline: none;
+			border-spacing: 0;
+			text-shadow: 0 0 1px #666677;
+		  text-align: center;
+			border: 1px solid #000000;
+		  padding: 10px
+}
+
+#form input{
+			font: 24px/120% 'STHeiti',Gil Sans MT,Helvetica,serif;
+			color: #777;
+			background: #ffffff;
+			outline: none;
+			border-spacing: 0;
+			text-shadow: 0 0 1px #666677;
+		  text-align: center;
+			border: 1px solid #000000;
+		  padding: 10px
+}
+
+#centerer{
+		padding-top: 20px;
+		width:960;
+		height: 80%;
+		margin: 0 auto;
+}
+
+/* Footer */
+
+#footer-wrapper {
+	overflow: hidden;
+	padding: 0px 0px 0px 20px;
+	border-top: 15px solid #242424;
+	background: #454545;
+	margin: 0 auto;
+	text-align: center;
+	clear: both;
+}
+
+#footer {
+	clear: both;
+	width: 980px;
+	height: 100px;
+	margin: 6px auto 0px auto;
+	font: 18px/120% 'STHeiti',Gil Sans MT,Helvetica,serif;
+}
+
+#footer p {
+	margin: 0 auto;
+	padding: 30px 0px 0px 0px;
+	line-height: normal;
+	font-size: 10px;
+	text-transform: uppercase;
+	text-align: center;
+	color: #ffefd9;
+  text-shadow: #000000 0px 1px 1px;
+
+}
+
+#footer a {
+	color: #61544B;
+}
+
+#three-columns {
+	width: 900px;
+	margin: 0px auto 30px auto;
+	padding: 18px 0px 30px 0px;
+	font-size: 22px;
+	margin: 0 auto;
+	text-align: center;
+	font: 18px/120% 'STHeiti',Gil Sans MT,Helvetica,serif;
+  text-shadow: #000000 0px 1px 1px;
+
+}
+
+#three-columns ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+
+}
+
+#three-columns li {
+	padding: 4px 0px 6px 0px;
+
+}
+
+#three-columns h2 {
+ 	padding: 0px 0px 10px 0px;
+	font-size: 28px;
+  text-shadow: #000000 0px 1px 1px;
+	color: #7F1732;
+}
+
+#three-columns a {
+ 	padding: 0px 0px 10px 0px;
+	font-size: 18px;
+  	text-shadow: #000000 0px 1px 1px;
+	color: #FFEFD9;
+}
+
+#column1 {
+	float: left;
+	width: 280px;
+	margin-right: 30px;
+}
+
+#column2 {
+	float: left;
+	width: 280px;
+}
+
+#column3 {
+	float: right;
+	width: 280px;
+}
