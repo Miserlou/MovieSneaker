@@ -7,7 +7,25 @@ class ZipCode(models.Model):
 
 class ZipCodeForm(ModelForm):
     class Meta:
-        model = ZipCode 
+        model = ZipCode
+
+class Movie(models.Model):
+    name = models.CharField(max_length=256, blank=False)
+    runtime = models.IntegerField(blank=False)
+    description = models.CharField(max_length=512, blank=True)
+    notes = models.CharField(max_length=1024, blank=True)
+
+class Showing(models.Model):
+    movie = models.ForeignKey(Movie)
+    venue = models.ForeignKey(Venue)
+    start = models.DateTimeField(blank=False)
+    end = models.DateTimeField(blank=False)
+
+class Venue(models.Model):
+    name = models.CharField(max_length=256)
+    address = models.CharField(max_length=512)
+    zipcode = models.ForeignKey(ZipCode)
+    description = models.CharField(max_length=1024,blank=True)
 
 design_comment = """
 - Movie
