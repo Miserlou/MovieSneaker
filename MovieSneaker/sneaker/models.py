@@ -28,4 +28,5 @@ design_comment = """
   - address :: VARCHAR(512)
   - zipcode :: CHAR(5)
   - description :: VARCHAR(1024)
+
 """
