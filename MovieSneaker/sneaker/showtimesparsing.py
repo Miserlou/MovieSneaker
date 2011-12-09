@@ -23,6 +23,7 @@ class ShowtimeParser:
 			self._extract_venues()
 		return self.venues
 		
+# TODO: fake the useragent
 
 
 class FlixsterParser(ShowtimeParser):
@@ -45,3 +46,11 @@ class FlixsterParser(ShowtimeParser):
 	
 	def _get_base(self,**kwargs):
 		self.base = html.parse(BASE_URL%kwargs).getroot())
+
+	def _parse(self):
+		for theater in self.base.find_class('theater'):
+			name = theater.cssselect('h2 a')[0].attrib['title']
+			address = theater.cssselect('h2 span')[0].text.strip("\n\t -")
+			for movie in theater.cssselect('.showtime'):
+				title = movie.cssselect('h3 a').attrib['title']
+				raw_rating,raw_duration = movie.cssselect('h3 span').text.strip("\n\t -").split('-')
