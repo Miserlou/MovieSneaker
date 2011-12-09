@@ -11,7 +11,7 @@ class ZipCodeForm(ModelForm):
 
 class Movie(models.Model):
     name = models.CharField(max_length=256, blank=False)
-    runtime = models.IntegerField(blank=False)
+    runtime = models.IntegerField(blank=False) # in minutes
     description = models.CharField(max_length=512, blank=True)
     notes = models.CharField(max_length=1024, blank=True)
 
@@ -24,7 +24,9 @@ class Showing(models.Model):
 class Venue(models.Model):
     name = models.CharField(max_length=256)
     address = models.CharField(max_length=512)
-    zipcode = models.ForeignKey(ZipCode)
+    # This isn't the actual zipcode this venue is in
+    # Just the set of zipcodes this is considered close to
+    zipcode = models.ManyToManyField(ZipCode)
     description = models.CharField(max_length=1024,blank=True)
 
 design_comment = """
