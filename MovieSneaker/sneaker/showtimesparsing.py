@@ -29,7 +29,8 @@ class ShowtimeParser:
 class FlixsterParser(ShowtimeParser):
 	# The date is in the format: YYYYMMDD, zipcode is: NNNNN
 	BASE_URL = "http://igoogle.flixster.com/igoogle/showtimes?movie=all&date=%(date)s&postal=%(zipcode)s&submit=Go"
-
+	#USERAGENT = "Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405"
+	
 	def __init__(self,zipcode=None,date=None):
 		"""
 		:param date: Datetime object representing our target date
@@ -48,9 +49,21 @@ class FlixsterParser(ShowtimeParser):
 		self.base = html.parse(BASE_URL%kwargs).getroot())
 
 	def _parse(self):
+		theatres = []
 		for theater in self.base.find_class('theater'):
 			name = theater.cssselect('h2 a')[0].attrib['title']
 			address = theater.cssselect('h2 span')[0].text.strip("\n\t -")
+			movies = []
 			for movie in theater.cssselect('.showtime'):
 				title = movie.cssselect('h3 a').attrib['title']
 				raw_rating,raw_duration = movie.cssselect('h3 span').text.strip("\n\t -").split('-')
+				showings = []
+				for raw_time in movie.cssselect('h3').tail.split()
+					if raw_time.endswith(am):
+						raw_time += "pm"
+					# combine the hour with the date of this parse
+					start = datetime.datetime.combine(self.date,datetime.datetime.strptime(raw_time,"%I:%M%p")
+					end = start + duration
+				movies.append({'name':title,'showtimes':showings})
+			theatres.append({'name':name,'address':address,'movies':movies})
+		return theatres
