@@ -8,17 +8,30 @@ import re
 # each class can just do its own custom shit
 
 class ShowtimeParser:
+	"""Here's the format we expect this to return:
+	{ 'theatres': [ 
+			{'name':<theater name str>, 'address':<address str>, 'movies': [
+					{'name':<movie title str>, 'showtimes': [
+							{'start':<start datetime>,'end':<end datetime>}, ...
+						]
+					}, ...
+				]
+			}, ...
+		]
+	}
+	"""
 	base = None
 	zipcode = None
 	date = None
-		
-# TODO: fake the useragent
+	theatres = []
 
+	def get_theatres(self):
+		return {'theatres':self.theatres}
+		
 
 class FlixsterParser(ShowtimeParser):
 	# The date is in the format: YYYYMMDD, zipcode is: NNNNN
 	BASE_URL = "http://igoogle.flixster.com/igoogle/showtimes?movie=all&date=%(date)s&postal=%(zipcode)s&submit=Go"
-	#USERAGENT = "Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405"
 	
 	def __init__(self,zipcode=None,date=None):
 		"""
@@ -33,8 +46,7 @@ class FlixsterParser(ShowtimeParser):
 			self.zipcode = zipcode
 			self.date = date
 			self._get_base(date=date.strftime("%Y%m%d"),zipcode=zipcode)
-			self._parse()
-			
+			self._parse()			
 	
 	def _get_base(self,**kwargs):
 		self.base = html.parse(self.BASE_URL%kwargs).getroot()
@@ -80,6 +92,26 @@ class FlixsterParser(ShowtimeParser):
 		self.theatres = theatres
 		return theatres
 
+
+
 if __name__=="__main__":
-	fp = FlixsterParser("94043")
-	
+	import os
+	import cPickle
+	FILENAME = 'parse.pkl'
+	if os.path.exists(FILENAME):
+		theatre = cPickle.load(open(FILENAME))
+	else:
+		fp = FlixsterParser("94043")
+		theatre = fp.get_theatres()['theatres'][0]
+		cPickle.dump(theatre,open(FILENAME,'w'))
+	showtimes = []
+	for movie in theatre['movies']:
+		for showtime in movie['showtimes']:
+			showtimes.append((movie['name'],showtime['start'],showtime['end']))
+	import sneakercore
+	chains = sneakercore.find_chains(showtimes,chain_length=3)
+	for chain in chains:
+		for show in chain:
+			#print "%s %s - %s"%(show[0],show[1].ctime(),show[2].ctime()),
+			print "%s -> "%(show[0]),
+		print ""
