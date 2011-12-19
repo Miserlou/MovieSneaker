@@ -19,6 +19,8 @@ class SimpleTest(TestCase):
         """
         self.assertEqual(1 + 1, 2)
 
+CHAIN_LENGTH = 3
+
 class ParsingTest(TestCase):
 
 	def setUp(self):
@@ -41,14 +43,20 @@ class ParsingTest(TestCase):
 				showtimes.append((movie['name'],showtime['start'],showtime['end']))
 
 		self.showtimes = showtimes
+		self.chains = sneakercore.find_chains(showtimes,chain_length=CHAIN_LENGTH)
+
+	def test_chains_are_correct_length(self):
+		"""
+		Tests that the chains generated are of the correct length
+		"""
+		for chain in self.chains:
+			self.assertEqual(len(chain),CHAIN_LENGTH)
 
 		
 	def test_chains_contain_no_duplicates(self):
 		"""
 		Tests that chains contain no duplicate movies
 		"""
-		chains = sneakercore.find_chains(showtimes,chain_length=3)
-
-		for chain in chains:
+		for chain in self.chains:
 			movie_names = [show[0] for show in chain]
 			self.assertEqual(len(movie_names),len(set(movie_names))

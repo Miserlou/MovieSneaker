@@ -91,27 +91,3 @@ class FlixsterParser(ShowtimeParser):
 			theatres.append({'name':name,'address':address,'movies':movies})
 		self.theatres = theatres
 		return theatres
-
-
-
-if __name__=="__main__":
-	import os
-	import cPickle
-	FILENAME = 'parse.pkl'
-	if os.path.exists(FILENAME):
-		theatre = cPickle.load(open(FILENAME))
-	else:
-		fp = FlixsterParser("94043")
-		theatre = fp.get_theatres()['theatres'][0]
-		cPickle.dump(theatre,open(FILENAME,'w'))
-	showtimes = []
-	for movie in theatre['movies']:
-		for showtime in movie['showtimes']:
-			showtimes.append((movie['name'],showtime['start'],showtime['end']))
-	import sneakercore
-	chains = sneakercore.find_chains(showtimes,chain_length=3)
-	for chain in chains:
-		for show in chain:
-			#print "%s %s - %s"%(show[0],show[1].ctime(),show[2].ctime()),
-			print "%s -> "%(show[0]),
-		print ""
