@@ -59,4 +59,4 @@ class ParsingTest(TestCase):
 		"""
 		for chain in self.chains:
 			movie_names = [show[0] for show in chain]
-			self.assertEqual(len(movie_names),len(set(movie_names))
+			self.assertEqual(len(movie_names),len(set(movie_names)))
