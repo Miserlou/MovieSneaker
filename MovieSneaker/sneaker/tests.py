@@ -23,40 +23,40 @@ CHAIN_LENGTH = 3
 
 class ParsingTest(TestCase):
 
-	def setUp(self):
-		FILENAME = 'test_parse.pkl'
-		
-		# if the file isn't there we can't do this test, so it fails
-		if not os.path.exists(FILENAME):
-			raise Exception("Need a test case pickle to test")
+    def setUp(self):
+        FILENAME = 'test_parse.pkl'
 
-		theatre = cPickle.load(open(FILENAME))
-		# this is how the pickle was derived
-		# fp = FlixsterParser("94043")
-		# theatre = fp.get_theatres()['theatres'][0]
-		# cPickle.dump(theatre,open(FILENAME,'w'))
+        # if the file isn't there we can't do this test, so it fails
+        if not os.path.exists(FILENAME):
+            raise Exception("Need a test case pickle to test")
 
-			
-		showtimes = []
-		for movie in theatre['movies']:
-			for showtime in movie['showtimes']:
-				showtimes.append((movie['name'],showtime['start'],showtime['end']))
+        theatre = cPickle.load(open(FILENAME))
+        # this is how the pickle was derived
+        # fp = FlixsterParser("94043")
+        # theatre = fp.get_theatres()['theatres'][0]
+        # cPickle.dump(theatre,open(FILENAME,'w'))
 
-		self.showtimes = showtimes
-		self.chains = sneakercore.find_chains(showtimes,chain_length=CHAIN_LENGTH)
 
-	def test_chains_are_correct_length(self):
-		"""
-		Tests that the chains generated are of the correct length
-		"""
-		for chain in self.chains:
-			self.assertEqual(len(chain),CHAIN_LENGTH)
+        showtimes = []
+        for movie in theatre['movies']:
+            for showtime in movie['showtimes']:
+                showtimes.append((movie['name'],showtime['start'],showtime['end']))
 
-		
-	def test_chains_contain_no_duplicates(self):
-		"""
-		Tests that chains contain no duplicate movies
-		"""
-		for chain in self.chains:
-			movie_names = [show[0] for show in chain]
-			self.assertEqual(len(movie_names),len(set(movie_names)))
+        self.showtimes = showtimes
+        self.chains = sneakercore.find_chains(showtimes,chain_length=CHAIN_LENGTH)
+
+    def test_chains_are_correct_length(self):
+        """
+        Tests that the chains generated are of the correct length
+        """
+        for chain in self.chains:
+            self.assertEqual(len(chain),CHAIN_LENGTH)
+
+
+    def test_chains_contain_no_duplicates(self):
+        """
+        Tests that chains contain no duplicate movies
+        """
+        for chain in self.chains:
+            movie_names = [show[0] for show in chain]
+            self.assertEqual(len(movie_names),len(set(movie_names)))
