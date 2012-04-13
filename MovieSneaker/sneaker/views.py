@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core.serializers.json import DjangoJSONEncoder
 import datetime
-import hashlib
+#import hashlib
 import json
 import showtimesparsing
 
