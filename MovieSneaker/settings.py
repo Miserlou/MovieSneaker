@@ -101,6 +101,12 @@ INSTALLED_APPS = (
      'MovieSneaker.sneaker',
 )
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
 try:
     from local_settings import *
 except:

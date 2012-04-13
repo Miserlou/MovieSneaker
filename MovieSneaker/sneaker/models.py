@@ -15,12 +15,6 @@ class Movie(models.Model):
     description = models.CharField(max_length=512, blank=True)
     notes = models.CharField(max_length=1024, blank=True)
 
-class Showing(models.Model):
-    movie = models.ForeignKey(Movie)
-    venue = models.ForeignKey(Venue)
-    start = models.DateTimeField(blank=False)
-    end = models.DateTimeField(blank=False)
-
 class Venue(models.Model):
     name = models.CharField(max_length=256)
     address = models.CharField(max_length=512)
@@ -28,6 +22,12 @@ class Venue(models.Model):
     # Just the set of zipcodes this is considered close to
     zipcode = models.ManyToManyField(ZipCode)
     description = models.CharField(max_length=1024,blank=True)
+
+class Showing(models.Model):
+    movie = models.ForeignKey(Movie)
+    venue = models.ForeignKey(Venue)
+    start = models.DateTimeField(blank=False)
+    end = models.DateTimeField(blank=False)
 
 design_comment = """
 - Movie

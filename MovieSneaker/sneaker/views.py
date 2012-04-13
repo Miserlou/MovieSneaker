@@ -3,10 +3,15 @@ from django.template import Context, loader
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404, render_to_response
+from django.core.serializers.json import DjangoJSONEncoder
 from datetime import datetime
 import hashlib
+import json
+import showtimesparsing
 
 from sneaker.models import ZipCodeForm
+
+
 
 def root(request):
 
@@ -25,3 +30,10 @@ def root(request):
 
 def sneaking(request, hash):
     return render_to_response('processing.html', context_instance=RequestContext(request))
+
+def venues(request, zipcode, date=None):
+    fp = showtimesparsing.FlixsterParser(zipcode = zipcode)
+    return HttpResponse(json.dumps(fp.theatres, cls=DjangoJSONEncoder, indent=1))
+    #if not date
+    #venues =
+
