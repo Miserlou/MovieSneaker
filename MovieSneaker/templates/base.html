@@ -1,0 +1,61 @@
+<html>
+<head>
+    <link href="/static/style.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico">
+    <!-- poop on async lib loading. maybe later. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="/static/js/underscore-min.js"></script>
+    <script src="/static/js/backbone-min.js"></script>
+    <title>MovieSneaker</title>
+</head>
+<body>
+
+<div id="centerer">
+    <div id="header">
+        <div id="logo">
+            <h1><b>Movie</b>Sneaker</h1>
+        </div>
+        <div id="tagline">
+            <i>"I ain't payin for that shit!"</i>
+        </div>
+    </div>
+    <div id="main">
+        {% block main %}
+        {% endblock main %}
+
+    </div>
+</div>
+
+<div id="footer-wrapper">
+    <div id="three-columns">
+        <div id="column1">
+            <h2>About</h2>
+            <ul>
+                <li><a href="/about/">About</a></li>
+                <li><a href="/blog/">Blog</a> / <a href="http://twitter.com/moviesneaker" target="_blank">Twitter</a></li>
+            </ul>
+        </div>
+        <div id="column2">
+            <h2>Contact</h2>
+            <ul>
+                <li><a href="/contact/">Contact</a></li>
+            </ul>
+        </div>
+        <div id="column3">
+            <h2>Meta</h2>
+            <ul>
+                <li><a href="/">API</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="footer">
+        <p>Copyright (c) 2011 Beef Bowel Movements, Inc.</p>
+    </div>
+
+    <!-- end #footer -->
+</div>
+
+</body>
+</html>
+
