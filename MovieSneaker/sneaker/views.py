@@ -35,12 +35,19 @@ def sneaking(request, hash):
 def _slurp_theatres(zipcode,date):
     theatres = showtimesparsing.FlixsterParser(zipcode=zipcode,date=date)
     for theatre in theatres:
-        v = Venue.objects.get_or_create(name=theatre["name"],address=theatre["address"],zipcode=ZipCode(zipcode=zipcode))
+        z = ZipCode.objects.get_or_create(zipcode=zipcode)
+        z.save()
+        v = Venue.objects.get_or_create(name=theatre["name"],address=theatre["address"],zipcode=z)
         v.save()
         for movie in theatre['movies']:
             showtimes = movie['showtimes']
             runtime = (showtimes[0]['end']-showtimes[0]['start']).seconds/60.0
             m = Movie.objects.get_or_create(name=movie["name"],runtime=runtime)
+            m.save()
+            for showtime in showtimes:
+                s = Showing.objects.get_or_create(movie=m,venue=v,start=showtime['start'],end=showtime['end'])
+                s.save()
+    return theatres
 
 
 
