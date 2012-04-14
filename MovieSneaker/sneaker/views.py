@@ -10,7 +10,7 @@ import datetime
 import json
 import showtimesparsing
 
-from sneaker.models import ZipCodeForm
+from sneaker.models import ZipCodeForm, ZipCode, Movie, Venue, Showing
 
 
 
@@ -32,14 +32,27 @@ def root(request):
 def sneaking(request, hash):
     return render_to_response('processing.html', context_instance=RequestContext(request))
 
+def _slurp_theatres(zipcode,date):
+    theatres = showtimesparsing.FlixsterParser(zipcode=zipcode,date=date)
+    for theatre in theatres:
+        v = Venue.objects.get_or_create(name=theatre["name"],address=theatre["address"],zipcode=ZipCode(zipcode=zipcode))
+        v.save()
+        for movie in theatre['movies']:
+            showtimes = movie['showtimes']
+            runtime = (showtimes[0]['end']-showtimes[0]['start']).seconds/60.0
+            m = Movie.objects.get_or_create(name=movie["name"],runtime=runtime)
+
+
+
 def venues(request, zipcode, date=None):
     if not date:
         date = datetime.datetime.today()
     cache_key = "%s_%s"%(zipcode,date.strftime("%Y-%m-%d"))
     theatres = cache.get(cache_key)
     if not theatres:
-        theatres = json.dumps(showtimesparsing.FlixsterParser(zipcode=zipcode,date=date), cls=DjangoJSONEncoder, indent=1)
-        cache.set(cache_key,theatres)
+        theatres = _slurp_theatres(zipcode,date)
+        theatres_json = json.dumps(theatres, cls=DjangoJSONEncoder, indent=1)
+        cache.set(cache_key,theatres_json)
 
     return HttpResponse(theatres)
     #if not date
