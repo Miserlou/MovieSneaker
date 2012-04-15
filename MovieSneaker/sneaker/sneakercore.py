@@ -38,7 +38,7 @@ def find_chains(events,chain_length=2,max_wait=datetime.timedelta(minutes=10),ca
         problem = False
         seen = []
         for i in range(chain_length):
-            clean_key = chain[i][0].lower().strip()
+            clean_key = chain[i][0].lower().strip() if type(chain[i][0]) is str else chain[i][0]
 
             # only do this check if this isn't the last item
             if i<(chain_length-1):
