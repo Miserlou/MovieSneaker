@@ -5,7 +5,7 @@ from . import app
 
 @app.route('/')
 def index():
-    return 'Hello World!'
+    return 'Hello Everyone!'
 
 if __name__ == '__main__':
     app.run()
