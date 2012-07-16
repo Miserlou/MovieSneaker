@@ -1,9 +1,11 @@
 from flask import Flask, request, session, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 
-app = Flask(__name__)
-app.config.from_pyfile('moviesneaker.cfg')
-db = SQLAlchemy(app)
+from moviesneaker import app
+
+@app.route('/')
+def index():
+    return 'Hello World!'
 
 if __name__ == '__main__':
     app.run()
