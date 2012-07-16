@@ -1,7 +1,7 @@
 from flask import Flask, request, session, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 
-from moviesneaker import app
+from . import app
 
 @app.route('/')
 def index():
