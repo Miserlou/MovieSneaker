@@ -59,11 +59,15 @@ def _slurp_theatres(zipcode,date):
                 showtime["id"] = s.id
     return theatres
 
-
+def _parse_date(date):
+    return datetime.datetime.strptime(date,"%Y%m%d") if date else datetime.datetime.today()
 
 def venues(request, zipcode, date=None):
-    if not date:
-        date = datetime.datetime.today()
+    """
+    Returns JSON of theatres
+    """
+    date = _parse_date(date)
+
     cache_key = "%s_%s"%(zipcode,date.strftime("%Y-%m-%d"))
     theatres_json = cache.get(cache_key)
     if not theatres_json:
@@ -76,11 +80,12 @@ def venues(request, zipcode, date=None):
     #venues =
 
 def get_chains(request,theatre, date=None):
-    if not date:
-        date = datetime.datetime.today()
+    date = _parse_date(date)
+
     chain_length = int(request.GET.get('length',3))
     if chain_length > 4:
         return HttpResponse(json.dumps({"error":"No chains longer than 4 items supported"}))
+
     cache_key = "t%s_%s_%d"%(theatre,date.strftime("%Y-%m-%d"),chain_length)
     chains_json = cache.get(cache_key)
     if not chains_json:
